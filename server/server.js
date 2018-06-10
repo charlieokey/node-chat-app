@@ -19,10 +19,15 @@ io.on('connection', (socket) => {
         from: 'charlie@example.com',
         text: 'Hey, everyone',
         createAt: Date.now()
-    })
+    });
 
     socket.on('createMessage', (message) => {
         console.log('createMessage', message);
+        io.emit('newMessage', {
+            from: message.from,
+            text: message.text,
+            createdAt: Date.now()
+        });
     });
 
     socket.on('disconnect', () => {
